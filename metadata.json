@@ -1,6 +1,8 @@
 {
   "name": "Noa Kadish Portfolio",
-  "description": "Portfolio of Noa Kadish - Junior Full Stack Developer specializing in React, Angular, Node.js, Spring Boot, and .NET Core.",
+  "description": "Portfolio of Noa Kadish - Junior Full Stack Developer | Software Engineering.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
