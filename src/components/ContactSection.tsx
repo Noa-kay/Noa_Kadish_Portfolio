@@ -26,7 +26,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
     setTimeout(() => setCopiedType(null), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
 
@@ -45,11 +45,52 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${profile.email}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          _subject: formState.subject.trim()
+            ? formState.subject.trim()
+            : `Portfolio Inquiry from ${formState.name}`,
+          message: formState.message,
+          _replyto: formState.email,
+          _captcha: 'false',
+        }),
+      });
+
+      if (response.ok) {
+        setIsSent(true);
+        setFormState({ name: '', email: '', subject: '', message: '' });
+      } else {
+        // Fallback
+        const mailtoUrl = `mailto:${profile.email}?subject=${encodeURIComponent(
+          formState.subject || `Message from ${formState.name}`
+        )}&body=${encodeURIComponent(
+          `From: ${formState.name} (${formState.email})\n\n${formState.message}`
+        )}`;
+        window.location.href = mailtoUrl;
+        setIsSent(true);
+        setFormState({ name: '', email: '', subject: '', message: '' });
+      }
+    } catch {
+      const mailtoUrl = `mailto:${profile.email}?subject=${encodeURIComponent(
+        formState.subject || `Message from ${formState.name}`
+      )}&body=${encodeURIComponent(
+        `From: ${formState.name} (${formState.email})\n\n${formState.message}`
+      )}`;
+      window.location.href = mailtoUrl;
       setIsSent(true);
       setFormState({ name: '', email: '', subject: '', message: '' });
-    }, 500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -164,13 +205,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
               <h4 className="text-sm font-bold text-slate-900">
                 {lang === 'en' ? 'Message Sent Successfully!' : 'ההודעה נשלחה בהצלחה!'}
               </h4>
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-slate-600 max-w-md mx-auto">
                 {lang === 'en'
-                  ? 'Thank you for reaching out. I will get back to you promptly.'
-                  : 'תודה על הפנייה. אחזור אליכם בהקדם.'}
+                  ? 'Thank you for reaching out. Your message has been sent directly to Noa.'
+                  : 'תודה על הפנייה. הודעתך נשלחה ישירות לתיבת המייל של נועה.'}
               </p>
               <button
-                onClick={() => setIsSent(false)}
+                onClick={() => {
+                  setIsSent(false);
+                  setFormState({ name: '', email: '', subject: '', message: '' });
+                }}
                 className="mt-2 text-xs font-bold text-blue-600 hover:text-blue-800 underline cursor-pointer"
               >
                 {lang === 'en' ? 'Send another message' : 'שליחת הודעה נוספת'}
@@ -256,7 +300,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   className="inline-flex items-center gap-1.5 px-6 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 disabled:opacity-50 rounded-xl transition-colors cursor-pointer shadow-2xs"
                 >
                   <Send className="w-3 h-3" />
-                  <span>{isSubmitting ? (lang === 'en' ? 'Sending...' : 'שולח...') : (lang === 'en' ? 'Send Message' : 'שליחה')}</span>
+                  <span>
+                    {isSubmitting
+                      ? lang === 'en'
+                        ? 'Sending...'
+                        : 'שולח...'
+                      : lang === 'en'
+                      ? 'Send Message'
+                      : 'שליחת הודעה'}
+                  </span>
                 </button>
               </div>
             </form>
