@@ -119,8 +119,16 @@
     max-width: 100% !important;
     background: #ffffff !important;
     color: #0F172A !important;
-    font-size: 11pt !important;
-    line-height: 1.4 !important;
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Force side-by-side 2-column layout exactly like the reference image */
+  #cv-document .resume-columns {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 28px !important;
+    padding-top: 12px !important;
   }
 
   /* Avoid breaking sections across page boundaries */

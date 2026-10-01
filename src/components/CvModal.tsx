@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { portfolioData, Language } from '../data/portfolioData';
-import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, Download, Loader2 } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, Download } from 'lucide-react';
 
 interface CvModalProps {
   isOpen: boolean;
@@ -12,7 +10,6 @@ interface CvModalProps {
 
 export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
   const { profile } = portfolioData;
 
   useEffect(() => {
@@ -33,54 +30,6 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
 
   const handlePrint = () => {
     window.print();
-  };
-
-  const handleDownloadPdf = async () => {
-    const element = document.getElementById('cv-document');
-    if (!element) return;
-
-    setIsDownloading(true);
-    try {
-      // Render the CV DOM element to a high-resolution canvas
-      const canvas = await html2canvas(element, {
-        scale: 2, // 2x resolution for razor-sharp text and borders
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-      });
-
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-      });
-
-      const pdfWidth = 210; // A4 standard width in mm
-      const pdfHeight = 297; // A4 standard height in mm
-      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      // Add first page
-      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-      heightLeft -= pdfHeight;
-
-      // Add extra pages if needed
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-        heightLeft -= pdfHeight;
-      }
-
-      pdf.save('Noa_Kadish_Resume.pdf');
-    } catch (err) {
-      console.error('Failed to generate PDF, falling back to print dialog', err);
-      window.print();
-    } finally {
-      setIsDownloading(false);
-    }
   };
 
   const handleCopyContact = () => {
@@ -112,25 +61,16 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Direct Download Button */}
-            <button
-              onClick={handleDownloadPdf}
-              disabled={isDownloading}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-60 rounded-lg transition-colors cursor-pointer shadow-2xs"
+            {/* Direct Download Button: Downloads PDF file directly to device without any print redirect */}
+            <a
+              href="/Noa_Kadish_Resume.pdf"
+              download="Noa_Kadish_Resume.pdf"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors cursor-pointer shadow-2xs no-underline"
               title="Download PDF directly to your computer"
             >
-              {isDownloading ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  <span>{lang === 'en' ? 'Downloading...' : 'מוריד...'}</span>
-                </>
-              ) : (
-                <>
-                  <Download className="w-3.5 h-3.5" />
-                  <span>{lang === 'en' ? 'Download PDF' : 'הורדת PDF'}</span>
-                </>
-              )}
-            </button>
+              <Download className="w-3.5 h-3.5" />
+              <span>{lang === 'en' ? 'Download PDF' : 'הורדת PDF'}</span>
+            </a>
 
             {/* Print Button with dedicated print styling */}
             <button
@@ -170,19 +110,19 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
         {/* Scrollable Document Container - EXACT AUTHENTIC RESUME IN ORIGINAL ENGLISH (ALWAYS LTR) */}
         <div id="cv-document" className="flex-1 overflow-y-auto p-6 sm:p-10 text-start bg-white text-slate-900 font-sans print:p-0" dir="ltr">
           {/* Top Header - Exact Original Layout */}
-          <div className="relative pb-5 border-b border-slate-300 space-y-2">
+          <div className="relative pb-4 border-b border-slate-200 space-y-1.5">
             {/* Top-left subtle warm camel accent tab matching the original */}
-            <div className="w-12 h-2.5 bg-[#C59B6D] rounded-t-xs mb-2" />
+            <div className="w-12 h-2 bg-[#C59B6D] rounded-xs mb-2" />
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">
               Noa Kadish
             </h1>
-            <p className="text-base sm:text-lg font-bold text-slate-700">
+            <p className="text-base sm:text-lg font-bold text-slate-800">
               Junior Full Stack Developer
             </p>
 
             {/* Contact Details Line with Icons */}
-            <div className="flex flex-wrap items-center gap-y-1.5 gap-x-4 text-xs font-medium text-slate-700 pt-1">
+            <div className="flex flex-wrap items-center gap-y-1.5 gap-x-4 text-xs font-normal text-slate-700 pt-1">
               <span className="flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-slate-600" />
                 noa.kadish@outlook.com
@@ -206,8 +146,8 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
             </div>
           </div>
 
-          {/* 2-Column Exact Resume Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+          {/* 2-Column Exact Resume Layout - Fixed side-by-side in both preview and print */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 resume-columns">
             {/* LEFT COLUMN: Profile, Education, Technical Skills, Languages */}
             <div className="space-y-6">
               {/* Professional Profile */}
