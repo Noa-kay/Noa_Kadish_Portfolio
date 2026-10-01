@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { portfolioData, Language } from '../data/portfolioData';
-import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, ExternalLink } from 'lucide-react';
+import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, Download, Loader2 } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 interface CvModalProps {
   isOpen: boolean;
@@ -9,7 +11,8 @@ interface CvModalProps {
 }
 
 export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
-  const [copied, setCopied] = React.useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const { profile } = portfolioData;
 
   useEffect(() => {
@@ -32,6 +35,54 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
     window.print();
   };
 
+  const handleDownloadPdf = async () => {
+    const element = document.getElementById('cv-document');
+    if (!element) return;
+
+    setIsDownloading(true);
+    try {
+      // Render the CV DOM element to a high-resolution canvas
+      const canvas = await html2canvas(element, {
+        scale: 2, // 2x resolution for razor-sharp text and borders
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff',
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      const pdfWidth = 210; // A4 standard width in mm
+      const pdfHeight = 297; // A4 standard height in mm
+      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      // Add first page
+      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
+
+      // Add extra pages if needed
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+        heightLeft -= pdfHeight;
+      }
+
+      pdf.save('Noa_Kadish_Resume.pdf');
+    } catch (err) {
+      console.error('Failed to generate PDF, falling back to print dialog', err);
+      window.print();
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   const handleCopyContact = () => {
     const contactText = `Noa Kadish | Junior Full Stack Developer\nEmail: noa.kadish@outlook.com\nPhone: 0548527526\nLocation: Petach tikva\nGitHub: https://github.com/Noa-kay\nLinkedIn: https://linkedin.com/in/noa-kadish`;
     navigator.clipboard.writeText(contactText);
@@ -41,17 +92,19 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
 
   return (
     <div
+      id="cv-modal-backdrop"
       className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-950/70 backdrop-blur-xs animate-in fade-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
       <div
+        id="cv-modal-card"
         className="relative w-full max-w-4xl max-h-[94vh] flex flex-col bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Controls Bar */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-200 bg-slate-100" dir="ltr">
+        <div id="cv-modal-header" className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-slate-200 bg-slate-100" dir="ltr">
           <div className="flex items-center gap-2">
             <span className="text-xs sm:text-sm font-bold text-slate-800">
               Curriculum Vitae — Noa Kadish
@@ -59,26 +112,49 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Direct Download Button */}
+            <button
+              onClick={handleDownloadPdf}
+              disabled={isDownloading}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-60 rounded-lg transition-colors cursor-pointer shadow-2xs"
+              title="Download PDF directly to your computer"
+            >
+              {isDownloading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>{lang === 'en' ? 'Downloading...' : 'מוריד...'}</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5" />
+                  <span>{lang === 'en' ? 'Download PDF' : 'הורדת PDF'}</span>
+                </>
+              )}
+            </button>
+
+            {/* Print Button with dedicated print styling */}
+            <button
+              onClick={handlePrint}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors cursor-pointer shadow-2xs"
+              title="Print resume or save via browser print"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>{lang === 'en' ? 'Print' : 'הדפסה'}</span>
+            </button>
+
+            {/* Copy Info Button */}
             <button
               onClick={handleCopyContact}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Copied!</span>
+                  <span>{lang === 'en' ? 'Copied!' : 'הועתק!'}</span>
                 </>
               ) : (
-                <span>Copy Contact Info</span>
+                <span>{lang === 'en' ? 'Copy Info' : 'העתקת פרטים'}</span>
               )}
-            </button>
-
-            <button
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors cursor-pointer shadow-2xs"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span>Print / Save PDF</span>
             </button>
 
             <button
@@ -92,7 +168,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
         </div>
 
         {/* Scrollable Document Container - EXACT AUTHENTIC RESUME IN ORIGINAL ENGLISH (ALWAYS LTR) */}
-        <div className="flex-1 overflow-y-auto p-6 sm:p-10 text-start bg-white text-slate-900 font-sans print:p-0" dir="ltr">
+        <div id="cv-document" className="flex-1 overflow-y-auto p-6 sm:p-10 text-start bg-white text-slate-900 font-sans print:p-0" dir="ltr">
           {/* Top Header - Exact Original Layout */}
           <div className="relative pb-5 border-b border-slate-300 space-y-2">
             {/* Top-left subtle warm camel accent tab matching the original */}
@@ -135,7 +211,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
             {/* LEFT COLUMN: Profile, Education, Technical Skills, Languages */}
             <div className="space-y-6">
               {/* Professional Profile */}
-              <div className="space-y-2">
+              <div className="space-y-2 cv-section">
                 <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
                   Professional Profile
                 </h2>
@@ -145,7 +221,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Education */}
-              <div className="space-y-3">
+              <div className="space-y-3 cv-section">
                 <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
                   Education
                 </h2>
@@ -188,7 +264,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Technical Skills */}
-              <div className="space-y-2">
+              <div className="space-y-2 cv-section">
                 <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
                   Technical Skills
                 </h2>
@@ -221,7 +297,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Languages */}
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 cv-section">
                 <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
                   Languages
                 </h2>
@@ -234,13 +310,13 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
 
             {/* RIGHT COLUMN: Selected Projects */}
             <div className="space-y-6">
-              <div className="space-y-4">
+              <div className="space-y-4 cv-section">
                 <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
                   Selected Projects
                 </h2>
 
                 {/* Cars */}
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-slate-700 cv-section">
                   <h3 className="font-bold text-slate-950">
                     Cars – E-commerce Platform:
                   </h3>
@@ -252,7 +328,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                 </div>
 
                 {/* Color Bomb */}
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-slate-700 cv-section">
                   <h3 className="font-bold text-slate-950">
                     Color Bomb – Interactive Browser Game:
                   </h3>
@@ -264,7 +340,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                 </div>
 
                 {/* Fynx Web App */}
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-slate-700 cv-section">
                   <h3 className="font-bold text-slate-950">
                     Fynx – Collaborative Full-Stack Application:
                   </h3>
@@ -276,7 +352,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                 </div>
 
                 {/* Fynx Automation */}
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-slate-700 cv-section">
                   <h3 className="font-bold text-slate-950">
                     Fynx – Automation & Testing Framework:
                   </h3>
@@ -288,7 +364,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                 </div>
 
                 {/* Recipes */}
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-slate-700 cv-section">
                   <h3 className="font-bold text-slate-950">
                     Recipes – RESTful API Recipe Management Server:
                   </h3>
@@ -300,7 +376,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                 </div>
 
                 {/* Seminar-Site */}
-                <div className="space-y-1 text-xs text-slate-700">
+                <div className="space-y-1 text-xs text-slate-700 cv-section">
                   <h3 className="font-bold text-slate-950">
                     Seminar-Site – Student Profile Component in Institutional System:
                   </h3>

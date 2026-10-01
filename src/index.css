@@ -54,3 +54,78 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+/* ==========================================================================
+   FLAWLESS RESUME PRINTING STYLES
+   Ensures window.print() prints ONLY the CV document on clean A4 pages
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+
+  /* Reset body and hide main website elements */
+  body {
+    background: #ffffff !important;
+    color: #0F172A !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide background content when modal is printed */
+  main,
+  nav,
+  footer,
+  #cv-modal-header,
+  .print-hide {
+    display: none !important;
+  }
+
+  /* Reset modal overlay so it doesn't wrap or clip page */
+  #cv-modal-backdrop {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    backdrop-filter: none !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  #cv-modal-card {
+    position: static !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  #cv-document {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    color: #0F172A !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Avoid breaking sections across page boundaries */
+  .cv-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
