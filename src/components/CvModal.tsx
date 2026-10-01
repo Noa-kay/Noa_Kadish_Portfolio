@@ -1,0 +1,320 @@
+import React, { useEffect } from 'react';
+import { portfolioData, Language } from '../data/portfolioData';
+import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, ExternalLink } from 'lucide-react';
+
+interface CvModalProps {
+  isOpen: boolean;
+  lang: Language;
+  onClose: () => void;
+}
+
+export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
+  const [copied, setCopied] = React.useState(false);
+  const { profile } = portfolioData;
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleCopyContact = () => {
+    const contactText = `Noa Kadish | Junior Full Stack Developer\nEmail: noa.kadish@outlook.com\nPhone: 0548527526\nLocation: Petach tikva\nGitHub: https://github.com/Noa-kay\nLinkedIn: https://linkedin.com/in/noa-kadish`;
+    navigator.clipboard.writeText(contactText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-950/70 backdrop-blur-xs animate-in fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="relative w-full max-w-4xl max-h-[94vh] flex flex-col bg-white border border-slate-300 rounded-2xl shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Controls Bar */}
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-200 bg-slate-100" dir="ltr">
+          <div className="flex items-center gap-2">
+            <span className="text-xs sm:text-sm font-bold text-slate-800">
+              Curriculum Vitae — Noa Kadish
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyContact}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors cursor-pointer"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <span>Copy Contact Info</span>
+              )}
+            </button>
+
+            <button
+              onClick={handlePrint}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors cursor-pointer shadow-2xs"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print / Save PDF</span>
+            </button>
+
+            <button
+              onClick={onClose}
+              className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer ms-1"
+              aria-label="Close CV modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Document Container - EXACT AUTHENTIC RESUME IN ORIGINAL ENGLISH (ALWAYS LTR) */}
+        <div className="flex-1 overflow-y-auto p-6 sm:p-10 text-start bg-white text-slate-900 font-sans print:p-0" dir="ltr">
+          {/* Top Header - Exact Original Layout */}
+          <div className="relative pb-5 border-b border-slate-300 space-y-2">
+            {/* Top-left subtle warm camel accent tab matching the original */}
+            <div className="w-12 h-2.5 bg-[#C59B6D] rounded-t-xs mb-2" />
+
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
+              Noa Kadish
+            </h1>
+            <p className="text-base sm:text-lg font-bold text-slate-700">
+              Junior Full Stack Developer
+            </p>
+
+            {/* Contact Details Line with Icons */}
+            <div className="flex flex-wrap items-center gap-y-1.5 gap-x-4 text-xs font-medium text-slate-700 pt-1">
+              <span className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-slate-600" />
+                noa.kadish@outlook.com
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Phone className="w-3.5 h-3.5 text-slate-600" />
+                0548527526
+              </span>
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-slate-600" />
+                Petach Tikva
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Github className="w-3.5 h-3.5 text-slate-600" />
+                Noa-kay
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Linkedin className="w-3.5 h-3.5 text-slate-600" />
+                Noa kadish
+              </span>
+            </div>
+          </div>
+
+          {/* 2-Column Exact Resume Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+            {/* LEFT COLUMN: Profile, Education, Technical Skills, Languages */}
+            <div className="space-y-6">
+              {/* Professional Profile */}
+              <div className="space-y-2">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  Professional Profile
+                </h2>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  Results-driven Full Stack Developer with strong logical thinking and a passion for deep system investigation. Proven track record of mastering new technologies quickly and delivering precise, creative solutions under pressure. Looking to join a development team as a Full Stack Developer to drive technical growth.
+                </p>
+              </div>
+
+              {/* Education */}
+              <div className="space-y-3">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  Education
+                </h2>
+
+                <div className="space-y-3 text-xs text-slate-700">
+                  <div>
+                    <span className="font-bold text-slate-950 block">2020–2024:</span>
+                    <p>Full Matriculation Certificate: Beit Yaakov High School, Petach Tikva.</p>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-950 block">09/2024–05/2026:</span>
+                    <p>
+                      <strong>MAHAT Studies:</strong> Specialization in Full-Stack Development, Databases, Systems Analysis, and Software Engineering.
+                    </p>
+                    <p className="mt-1">
+                      <strong>UltraCode:</strong> Advanced technological training focusing on complex web architectures, client and server-side code optimization, and data-intensive application development.
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-950 block">
+                      Practical Experience 05/2026 – 07/2026:
+                    </span>
+                    <p>
+                      <strong>Chip Design & Verification Practicum:</strong> Successfully completed a comprehensive 250-hour, 9.5-week intensive program specializing in semiconductor planning, advanced simulation technologies, and hardware design verification methodologies.
+                    </p>
+                    <p className="font-mono-code text-[11px] text-slate-500 mt-0.5">
+                      Github: WIFI-RX-Decimation-Verification
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-950 block">Self-Learning & Enrichment:</span>
+                    <p>
+                      Completed professional online courses via the Campus IL platform in technology, development, and more. Continuous independent learning of new tools and technologies at all times.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Technical Skills */}
+              <div className="space-y-2">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  Technical Skills
+                </h2>
+
+                <div className="space-y-2 text-xs text-slate-700">
+                  <div>
+                    <span className="font-bold text-slate-950 block">Languages & Frameworks:</span>
+                    <p>
+                      HTML, CSS, JavaScript, TS, Node.js, Angular, React, Java, C#, Python, SQL, Spring Boot, .NET Core, H2, MongoDB, AWS, Unix, Verilog, UVM.
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-950 block">Tools & Infrastructure:</span>
+                    <p>
+                      Git & GitHub, Salesforce, Algorithms, Data Structures, SOC fundamentals, DevOps fundamentals - Docker, Copilot, Claude, Cursor, Chip Design & Verification fundamentals, Logic Simulation.
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-950 block">Design & Software:</span>
+                    <p>Microsoft Office, Canva, Photoshop.</p>
+                  </div>
+
+                  <div>
+                    <span className="font-bold text-slate-950 block">Operating Systems:</span>
+                    <p>macOS, Windows, Linux (Project experience)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Languages */}
+              <div className="space-y-1.5">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  Languages
+                </h2>
+                <div className="text-xs text-slate-700 space-y-0.5">
+                  <p><strong>Hebrew:</strong> Native</p>
+                  <p><strong>English:</strong> Very high proficiency, daily exposure and usage.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: Selected Projects */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  Selected Projects
+                </h2>
+
+                {/* Cars */}
+                <div className="space-y-1 text-xs text-slate-700">
+                  <h3 className="font-bold text-slate-950">
+                    Cars – E-commerce Platform:
+                  </h3>
+                  <p>
+                    Designed and developed a responsive vehicle showcase and sales site using HTML and CSS. Optimized loading times and utilized Media Queries to ensure full responsiveness.
+                  </p>
+                  <p><strong>Tools:</strong> HTML, CSS.</p>
+                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Cars-website</p>
+                </div>
+
+                {/* Color Bomb */}
+                <div className="space-y-1 text-xs text-slate-700">
+                  <h3 className="font-bold text-slate-950">
+                    Color Bomb – Interactive Browser Game:
+                  </h3>
+                  <p>
+                    Developed a game application based on JavaScript, implementing complex client-side algorithmic logic.
+                  </p>
+                  <p><strong>Tools:</strong> HTML, CSS, JavaScript.</p>
+                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Color-bomb game</p>
+                </div>
+
+                {/* Fynx Web App */}
+                <div className="space-y-1 text-xs text-slate-700">
+                  <h3 className="font-bold text-slate-950">
+                    Fynx – Collaborative Full-Stack Application:
+                  </h3>
+                  <p>
+                    Developed an end-to-end web system using Angular and Spring Boot for real-time data management and user interaction. Implemented REST APIs, multipart file uploads, and integrated an AI Chatbot while maintaining clear data separation through DTOs and Mappers.
+                  </p>
+                  <p><strong>Tools:</strong> Angular, Java, Spring Boot, H2 Database.</p>
+                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: web-app Fynx</p>
+                </div>
+
+                {/* Fynx Automation */}
+                <div className="space-y-1 text-xs text-slate-700">
+                  <h3 className="font-bold text-slate-950">
+                    Fynx – Automation & Testing Framework:
+                  </h3>
+                  <p>
+                    Developed a robust regression testing framework using C# and Selenium (POM), handling dynamic elements and advanced synchronization to ensure platform stability.
+                  </p>
+                  <p><strong>Tools:</strong> C#, Selenium, JS Executor, WebDriverWait.</p>
+                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Fynx-Automation</p>
+                </div>
+
+                {/* Recipes */}
+                <div className="space-y-1 text-xs text-slate-700">
+                  <h3 className="font-bold text-slate-950">
+                    Recipes – RESTful API Recipe Management Server:
+                  </h3>
+                  <p>
+                    Developed a backend system for user and content management, including authentication and RBAC. Implemented core server-side logic, data validation, and cloud-based database management.
+                  </p>
+                  <p><strong>Tools:</strong> Node.js, Express, MongoDB Atlas, Joi, Postman.</p>
+                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Recipes-Project-NodeJS</p>
+                </div>
+
+                {/* Seminar-Site */}
+                <div className="space-y-1 text-xs text-slate-700">
+                  <h3 className="font-bold text-slate-950">
+                    Seminar-Site – Student Profile Component in Institutional System:
+                  </h3>
+                  <p>
+                    Developed a microservice for an integrated system, enabling management of personal profiles, projects, skills, and a CV-generator chatbot. Implemented an End-to-End architecture featuring a secured API server and a dynamic Vite-based client interface.
+                  </p>
+                  <p><strong>Tools:</strong> ASP.NET Core 7, React (Vite), Entity Framework Core, JWT, Material UI.</p>
+                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Microservice-Profile</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
