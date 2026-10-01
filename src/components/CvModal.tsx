@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { portfolioData, Language } from '../data/portfolioData';
-import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, Download } from 'lucide-react';
+import { X, Printer, Mail, Phone, MapPin, Github, Linkedin, Check, Download, ExternalLink } from 'lucide-react';
 
 interface CvModalProps {
   isOpen: boolean;
@@ -61,7 +61,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Direct Download Button: Downloads PDF file directly to device without any print redirect */}
+            {/* Direct Download Button: Downloads original PDF file directly */}
             <a
               href="/Noa_Kadish_Resume.pdf"
               download="Noa_Kadish_Resume.pdf"
@@ -112,47 +112,47 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
           {/* Top Header - Exact Original Layout */}
           <div className="relative pb-4 border-b border-slate-200 space-y-1.5">
             {/* Top-left subtle warm camel accent tab matching the original */}
-            <div className="w-12 h-2 bg-[#C59B6D] rounded-xs mb-2" />
+            <div className="w-12 h-2.5 bg-[#C59B6D] rounded-xs mb-2" />
 
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-none">
               Noa Kadish
             </h1>
-            <p className="text-base sm:text-lg font-bold text-slate-800">
+            <p className="text-base font-bold text-slate-800">
               Junior Full Stack Developer
             </p>
 
             {/* Contact Details Line with Icons */}
             <div className="flex flex-wrap items-center gap-y-1.5 gap-x-4 text-xs font-normal text-slate-700 pt-1">
-              <span className="flex items-center gap-1.5">
+              <a href="mailto:noa.kadish@outlook.com" className="inline-flex items-center gap-1.5 hover:text-blue-600 transition-colors">
                 <Mail className="w-3.5 h-3.5 text-slate-600" />
-                noa.kadish@outlook.com
-              </span>
-              <span className="flex items-center gap-1.5">
+                <span>noa.kadish@outlook.com</span>
+              </a>
+              <a href="tel:0548527526" className="inline-flex items-center gap-1.5 hover:text-blue-600 transition-colors">
                 <Phone className="w-3.5 h-3.5 text-slate-600" />
-                0548527526
-              </span>
-              <span className="flex items-center gap-1.5">
+                <span>0548527526</span>
+              </a>
+              <span className="inline-flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-slate-600" />
-                Petach Tikva
+                <span>Petach tikva</span>
               </span>
-              <span className="flex items-center gap-1.5">
+              <a href="https://github.com/Noa-kay" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-blue-600 transition-colors">
                 <Github className="w-3.5 h-3.5 text-slate-600" />
-                Noa-kay
-              </span>
-              <span className="flex items-center gap-1.5">
+                <span>Noa-kay</span>
+              </a>
+              <a href="https://linkedin.com/in/noa-kadish" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-blue-600 transition-colors">
                 <Linkedin className="w-3.5 h-3.5 text-slate-600" />
-                Noa kadish
-              </span>
+                <span>Noa kadish</span>
+              </a>
             </div>
           </div>
 
           {/* 2-Column Exact Resume Layout - Fixed side-by-side in both preview and print */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 resume-columns">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-5 resume-columns">
             {/* LEFT COLUMN: Profile, Education, Technical Skills, Languages */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               {/* Professional Profile */}
-              <div className="space-y-2 cv-section">
-                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+              <div className="space-y-1.5 cv-section">
+                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
                   Professional Profile
                 </h2>
                 <p className="text-xs text-slate-700 leading-relaxed">
@@ -161,15 +161,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Education */}
-              <div className="space-y-3 cv-section">
-                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+              <div className="space-y-2.5 cv-section">
+                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
                   Education
                 </h2>
 
-                <div className="space-y-3 text-xs text-slate-700">
+                <div className="space-y-2 text-xs text-slate-700">
                   <div>
                     <span className="font-bold text-slate-950 block">2020–2024:</span>
-                    <p>Full Matriculation Certificate: Beit Yaakov High School, Petach Tikva.</p>
+                    <p>Full Matriculation Certificate: Beit Yaakov High School, Petah Tikva.</p>
                   </div>
 
                   <div>
@@ -189,9 +189,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     <p>
                       <strong>Chip Design & Verification Practicum:</strong> Successfully completed a comprehensive 250-hour, 9.5-week intensive program specializing in semiconductor planning, advanced simulation technologies, and hardware design verification methodologies.
                     </p>
-                    <p className="font-mono-code text-[11px] text-slate-500 mt-0.5">
-                      Github: WIFI-RX-Decimation-Verification
-                    </p>
+                    <a
+                      href="https://github.com/Noa-kay/WIFI-RX-Decimation-Verification"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1 mt-0.5"
+                    >
+                      <span>Github: WIFI-RX-Decimation-Verification</span>
+                      <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
                   </div>
 
                   <div>
@@ -205,7 +211,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
 
               {/* Technical Skills */}
               <div className="space-y-2 cv-section">
-                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
                   Technical Skills
                 </h2>
 
@@ -237,8 +243,8 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Languages */}
-              <div className="space-y-1.5 cv-section">
-                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+              <div className="space-y-1 cv-section">
+                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
                   Languages
                 </h2>
                 <div className="text-xs text-slate-700 space-y-0.5">
@@ -249,9 +255,9 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
             </div>
 
             {/* RIGHT COLUMN: Selected Projects */}
-            <div className="space-y-6">
-              <div className="space-y-4 cv-section">
-                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+            <div className="space-y-4">
+              <div className="space-y-3.5 cv-section">
+                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
                   Selected Projects
                 </h2>
 
@@ -264,7 +270,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     Designed and developed a responsive vehicle showcase and sales site using HTML and CSS. Optimized loading times and utilized Media Queries to ensure full responsiveness.
                   </p>
                   <p><strong>Tools:</strong> HTML, CSS.</p>
-                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Cars-website</p>
+                  <a
+                    href="https://github.com/Noa-kay/Cars-website"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>GitHub: Cars-website</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
 
                 {/* Color Bomb */}
@@ -276,7 +290,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     Developed a game application based on JavaScript, implementing complex client-side algorithmic logic.
                   </p>
                   <p><strong>Tools:</strong> HTML, CSS, JavaScript.</p>
-                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Color-bomb game</p>
+                  <a
+                    href="https://github.com/Noa-kay/Color-bomb-game"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>GitHub: Color-bomb game</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
 
                 {/* Fynx Web App */}
@@ -288,7 +310,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     Developed an end-to-end web system using Angular and Spring Boot for real-time data management and user interaction. Implemented REST APIs, multipart file uploads, and integrated an AI Chatbot while maintaining clear data separation through DTOs and Mappers.
                   </p>
                   <p><strong>Tools:</strong> Angular, Java, Spring Boot, H2 Database.</p>
-                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: web-app Fynx</p>
+                  <a
+                    href="https://github.com/Noa-kay/web-app-Fynx"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>GitHub: web-app Fynx</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
 
                 {/* Fynx Automation */}
@@ -300,7 +330,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     Developed a robust regression testing framework using C# and Selenium (POM), handling dynamic elements and advanced synchronization to ensure platform stability.
                   </p>
                   <p><strong>Tools:</strong> C#, Selenium, JS Executor, WebDriverWait.</p>
-                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Fynx-Automation</p>
+                  <a
+                    href="https://github.com/Noa-kay/Fynx-Automation"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>GitHub: Fynx-Automation</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
 
                 {/* Recipes */}
@@ -312,7 +350,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     Developed a backend system for user and content management, including authentication and RBAC. Implemented core server-side logic, data validation, and cloud-based database management.
                   </p>
                   <p><strong>Tools:</strong> Node.js, Express, MongoDB Atlas, Joi, Postman.</p>
-                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Recipes-Project-NodeJS</p>
+                  <a
+                    href="https://github.com/Noa-kay/Recipes-Project-NodeJS"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>GitHub: Recipes-Project-NodeJS</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
 
                 {/* Seminar-Site */}
@@ -324,7 +370,15 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                     Developed a microservice for an integrated system, enabling management of personal profiles, projects, skills, and a CV-generator chatbot. Implemented an End-to-End architecture featuring a secured API server and a dynamic Vite-based client interface.
                   </p>
                   <p><strong>Tools:</strong> ASP.NET Core 7, React (Vite), Entity Framework Core, JWT, Material UI.</p>
-                  <p className="font-mono-code text-[11px] text-slate-500">GitHub: Microservice-Profile</p>
+                  <a
+                    href="https://github.com/Noa-kay/Microservice-Profile"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>GitHub: Microservice-Profile</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
                 </div>
               </div>
             </div>

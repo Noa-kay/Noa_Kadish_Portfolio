@@ -9,40 +9,40 @@ const doc = new jsPDF({
 });
 
 const pageWidth = 210;
-const pageHeight = 297;
 const margin = 14;
 const contentWidth = pageWidth - margin * 2; // 182 mm
-const colGap = 8;
-const colWidth = (contentWidth - colGap) / 2; // 87 mm
+const colGap = 9;
+const colWidth = (contentWidth - colGap) / 2; // 86.5 mm
 
 const col1Left = margin;
 const col2Left = margin + colWidth + colGap;
 
 let y = 14;
 
-// 1. Accent Camel Bar
+// 1. Accent Camel Tab
 doc.setFillColor(197, 155, 109); // #C59B6D
-doc.roundedRect(col1Left, y, 16, 2.5, 0.5, 0.5, 'F');
-y += 7;
+doc.roundedRect(col1Left, y, 12, 3, 0.4, 0.4, 'F');
+y += 6.5;
 
 // 2. Name
 doc.setTextColor(15, 23, 42); // #0F172A
 doc.setFont('helvetica', 'bold');
 doc.setFontSize(22);
 doc.text('Noa Kadish', col1Left, y);
-y += 6.5;
+y += 6.2;
 
 // 3. Subtitle
-doc.setFontSize(11.5);
+doc.setFontSize(11);
 doc.setTextColor(51, 65, 85); // #334155
+doc.setFont('helvetica', 'normal');
 doc.text('Junior Full Stack Developer', col1Left, y);
-y += 5.5;
+y += 5.2;
 
 // 4. Contact Details Line
 doc.setFont('helvetica', 'normal');
-doc.setFontSize(8.5);
+doc.setFontSize(8.2);
 doc.setTextColor(51, 65, 85);
-const contactLine = 'noa.kadish@outlook.com   |   0548527526   |   Petach Tikva   |   GitHub: Noa-kay   |   LinkedIn: Noa kadish';
+const contactLine = 'noa.kadish@outlook.com   |   0548527526   |   Petach tikva   |   Noa-kay   |   Noa kadish';
 doc.text(contactLine, col1Left, y);
 y += 4;
 
@@ -57,14 +57,14 @@ const topColumnsY = y;
 // --- Helper Functions ---
 function drawSectionHeader(title, x, curY) {
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(10.5);
   doc.setTextColor(15, 23, 42);
   doc.text(title, x, curY);
   curY += 1.8;
   doc.setDrawColor(15, 23, 42);
-  doc.setLineWidth(0.35);
+  doc.setLineWidth(0.4);
   doc.line(x, curY, x + colWidth, curY);
-  curY += 4;
+  curY += 4.5;
   return curY;
 }
 
@@ -72,17 +72,17 @@ function drawSectionHeader(title, x, curY) {
 let y1 = topColumnsY;
 
 // Professional Profile
-y1 = drawSectionHeader('PROFESSIONAL PROFILE', col1Left, y1);
+y1 = drawSectionHeader('Professional Profile', col1Left, y1);
 doc.setFont('helvetica', 'normal');
-doc.setFontSize(7.8);
+doc.setFontSize(7.7);
 doc.setTextColor(51, 65, 85);
 const profileText = 'Results-driven Full Stack Developer with strong logical thinking and a passion for deep system investigation. Proven track record of mastering new technologies quickly and delivering precise, creative solutions under pressure. Looking to join a development team as a Full Stack Developer to drive technical growth.';
 const profileLines = doc.splitTextToSize(profileText, colWidth);
 doc.text(profileLines, col1Left, y1);
-y1 += profileLines.length * 3.4 + 4;
+y1 += profileLines.length * 3.3 + 4.5;
 
 // Education
-y1 = drawSectionHeader('EDUCATION', col1Left, y1);
+y1 = drawSectionHeader('Education', col1Left, y1);
 
 // 2020-2024
 doc.setFont('helvetica', 'bold');
@@ -91,11 +91,11 @@ doc.setTextColor(15, 23, 42);
 doc.text('2020–2024:', col1Left, y1);
 y1 += 3.3;
 doc.setFont('helvetica', 'normal');
-doc.setFontSize(7.6);
+doc.setFontSize(7.5);
 doc.setTextColor(51, 65, 85);
-const ed1Lines = doc.splitTextToSize('Full Matriculation Certificate: Beit Yaakov High School, Petach Tikva.', colWidth);
+const ed1Lines = doc.splitTextToSize('Full Matriculation Certificate: Beit Yaakov High School, Petah Tikva.', colWidth);
 doc.text(ed1Lines, col1Left, y1);
-y1 += ed1Lines.length * 3.2 + 2.5;
+y1 += ed1Lines.length * 3.1 + 2.5;
 
 // 09/2024-05/2026
 doc.setFont('helvetica', 'bold');
@@ -104,14 +104,14 @@ doc.setTextColor(15, 23, 42);
 doc.text('09/2024–05/2026:', col1Left, y1);
 y1 += 3.3;
 doc.setFont('helvetica', 'normal');
-doc.setFontSize(7.6);
+doc.setFontSize(7.5);
 doc.setTextColor(51, 65, 85);
 const ed2_1 = doc.splitTextToSize('MAHAT Studies: Specialization in Full-Stack Development, Databases, Systems Analysis, and Software Engineering.', colWidth);
 doc.text(ed2_1, col1Left, y1);
-y1 += ed2_1.length * 3.2 + 1;
+y1 += ed2_1.length * 3.1 + 1.2;
 const ed2_2 = doc.splitTextToSize('UltraCode: Advanced technological training focusing on complex web architectures, client and server-side code optimization, and data-intensive application development.', colWidth);
 doc.text(ed2_2, col1Left, y1);
-y1 += ed2_2.length * 3.2 + 2.5;
+y1 += ed2_2.length * 3.1 + 2.5;
 
 // Practical Experience
 doc.setFont('helvetica', 'bold');
@@ -120,16 +120,16 @@ doc.setTextColor(15, 23, 42);
 doc.text('Practical Experience 05/2026 – 07/2026:', col1Left, y1);
 y1 += 3.3;
 doc.setFont('helvetica', 'normal');
-doc.setFontSize(7.6);
+doc.setFontSize(7.5);
 doc.setTextColor(51, 65, 85);
 const ed3 = doc.splitTextToSize('Chip Design & Verification Practicum: Successfully completed a comprehensive 250-hour, 9.5-week intensive program specializing in semiconductor planning, advanced simulation technologies, and hardware design verification methodologies.', colWidth);
 doc.text(ed3, col1Left, y1);
-y1 += ed3.length * 3.2 + 1;
+y1 += ed3.length * 3.1 + 1.2;
 doc.setFont('courier', 'normal');
 doc.setFontSize(7.2);
 doc.setTextColor(100, 116, 139);
 doc.text('Github: WIFI-RX-Decimation-Verification', col1Left, y1);
-y1 += 3.5;
+y1 += 3.6;
 
 // Self Learning
 doc.setFont('helvetica', 'bold');
@@ -138,45 +138,45 @@ doc.setTextColor(15, 23, 42);
 doc.text('Self-Learning & Enrichment:', col1Left, y1);
 y1 += 3.3;
 doc.setFont('helvetica', 'normal');
-doc.setFontSize(7.6);
+doc.setFontSize(7.5);
 doc.setTextColor(51, 65, 85);
 const ed4 = doc.splitTextToSize('Completed professional online courses via the Campus IL platform in technology, development, and more. Continuous independent learning of new tools and technologies at all times.', colWidth);
 doc.text(ed4, col1Left, y1);
-y1 += ed4.length * 3.2 + 4.5;
+y1 += ed4.length * 3.1 + 4.5;
 
 // Technical Skills
-y1 = drawSectionHeader('TECHNICAL SKILLS', col1Left, y1);
+y1 = drawSectionHeader('Technical Skills', col1Left, y1);
 
 function drawSkill(label, desc) {
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7.8);
+  doc.setFontSize(7.7);
   doc.setTextColor(15, 23, 42);
   doc.text(label, col1Left, y1);
   y1 += 3.2;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.4);
   doc.setTextColor(51, 65, 85);
   const lines = doc.splitTextToSize(desc, colWidth);
   doc.text(lines, col1Left, y1);
-  y1 += lines.length * 3.2 + 2;
+  y1 += lines.length * 3.1 + 2.2;
 }
 
 drawSkill('Languages & Frameworks:', 'HTML, CSS, JavaScript, TS, Node.js, Angular, React, Java, C#, Python, SQL, Spring Boot, .NET Core, H2, MongoDB, AWS, Unix, Verilog, UVM.');
 drawSkill('Tools & Infrastructure:', 'Git & GitHub, Salesforce, Algorithms, Data Structures, SOC fundamentals, DevOps fundamentals - Docker, Copilot, Claude, Cursor, Chip Design & Verification fundamentals, Logic Simulation.');
 drawSkill('Design & Software:', 'Microsoft Office, Canva, Photoshop.');
 drawSkill('Operating Systems:', 'macOS, Windows, Linux (Project experience)');
-y1 += 2.5;
+y1 += 2;
 
 // Languages
-y1 = drawSectionHeader('LANGUAGES', col1Left, y1);
+y1 = drawSectionHeader('Languages', col1Left, y1);
 doc.setFont('helvetica', 'bold');
-doc.setFontSize(7.8);
+doc.setFontSize(7.7);
 doc.setTextColor(15, 23, 42);
 doc.text('Hebrew: ', col1Left, y1);
 doc.setFont('helvetica', 'normal');
 doc.setTextColor(51, 65, 85);
 doc.text('Native', col1Left + 13, y1);
-y1 += 3.6;
+y1 += 3.5;
 
 doc.setFont('helvetica', 'bold');
 doc.setTextColor(15, 23, 42);
@@ -187,7 +187,7 @@ doc.text('Very high proficiency, daily exposure and usage.', col1Left + 12, y1);
 
 // --- COLUMN 2 (RIGHT): SELECTED PROJECTS ---
 let y2 = topColumnsY;
-y2 = drawSectionHeader('SELECTED PROJECTS', col2Left, y2);
+y2 = drawSectionHeader('Selected Projects', col2Left, y2);
 
 function drawProject(title, desc, tools, github) {
   doc.setFont('helvetica', 'bold');
@@ -197,14 +197,14 @@ function drawProject(title, desc, tools, github) {
   y2 += 3.4;
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.4);
   doc.setTextColor(51, 65, 85);
   const descLines = doc.splitTextToSize(desc, colWidth);
   doc.text(descLines, col2Left, y2);
   y2 += descLines.length * 3.1 + 1.2;
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.4);
   doc.setTextColor(15, 23, 42);
   doc.text('Tools: ', col2Left, y2);
   doc.setFont('helvetica', 'normal');
