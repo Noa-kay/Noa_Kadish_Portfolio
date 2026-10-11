@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { portfolioData, Language } from '../data/portfolioData';
-import { Menu, X, FileText, Globe, ArrowUpRight, Github, Linkedin } from 'lucide-react';
+import { Menu, X, FileText, ArrowUpRight, Github } from 'lucide-react';
 
 interface NavbarProps {
   lang: Language;
-  onToggleLang: () => void;
   onOpenCvModal: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   lang,
-  onToggleLang,
   onOpenCvModal,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,31 +17,19 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks = [
     {
       href: '#projects',
-      label: {
-        he: 'פרויקטים',
-        en: 'Projects',
-      },
+      label: 'Projects',
     },
     {
       href: '#skills',
-      label: {
-        he: 'מיומנויות וטכנולוגיות',
-        en: 'Skills',
-      },
+      label: 'Skills',
     },
     {
       href: '#journey',
-      label: {
-        he: 'השכלה והתמחות',
-        en: 'Education & Practicum',
-      },
+      label: 'Education & Practicum',
     },
     {
       href: '#contact',
-      label: {
-        he: 'יצירת קשר',
-        en: 'Contact',
-      },
+      label: 'Contact',
     },
   ];
 
@@ -76,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={link.href}
               className="hover:text-slate-950 transition-colors py-1 relative"
             >
-              {link.label[lang]}
+              {link.label}
             </a>
           ))}
         </nav>
@@ -94,24 +80,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Github className="w-4 h-4" />
           </a>
 
-          {/* Language Toggle: HEB / ENG */}
-          <button
-            onClick={onToggleLang}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-slate-950 hover:bg-slate-100 rounded-lg transition-colors border border-slate-200 cursor-pointer shadow-2xs"
-            title={lang === 'en' ? 'Switch to Hebrew' : 'Switch to English'}
-            aria-label="Toggle language"
-          >
-            <Globe className="w-3.5 h-3.5 text-blue-600" />
-            <span className="tracking-wide">{lang === 'en' ? 'HEB' : 'ENG'}</span>
-          </button>
-
           {/* CV Button */}
           <button
             onClick={onOpenCvModal}
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg transition-all shadow-2xs whitespace-nowrap cursor-pointer"
           >
             <FileText className="w-3.5 h-3.5 text-slate-700" />
-            <span>{lang === 'en' ? 'Resume (PDF)' : 'קורות חיים (PDF)'}</span>
+            <span>Resume (PDF)</span>
           </button>
 
           {/* Contact Direct */}
@@ -119,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             href="#contact"
             className="hidden lg:inline-flex items-center gap-1 px-3.5 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors whitespace-nowrap shadow-2xs"
           >
-            <span>{lang === 'en' ? 'Contact' : 'צור קשר'}</span>
+            <span>Contact</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
 
@@ -144,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setMobileMenuOpen(false)}
               className="block px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md"
             >
-              {link.label[lang]}
+              {link.label}
             </a>
           ))}
           <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
@@ -156,14 +131,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="w-full flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-slate-800 bg-slate-100 rounded-lg"
             >
               <FileText className="w-4 h-4" />
-              <span>{lang === 'en' ? 'View Resume (PDF)' : 'צפייה בקורות חיים'}</span>
+              <span>Resume (PDF)</span>
             </button>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-white bg-slate-900 rounded-lg"
             >
-              <span>{lang === 'en' ? 'Contact Directly' : 'יצירת קשר'}</span>
+              <span>Contact</span>
             </a>
           </div>
         </div>

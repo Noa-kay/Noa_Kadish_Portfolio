@@ -72,7 +72,7 @@ function drawSectionHeader(title, x, curY) {
 let y1 = topColumnsY;
 
 // Professional Profile
-y1 = drawSectionHeader('Professional Profile', col1Left, y1);
+y1 = drawSectionHeader('PROFESSIONAL PROFILE', col1Left, y1);
 doc.setFont('helvetica', 'normal');
 doc.setFontSize(7.7);
 doc.setTextColor(51, 65, 85);
@@ -82,7 +82,7 @@ doc.text(profileLines, col1Left, y1);
 y1 += profileLines.length * 3.3 + 4.5;
 
 // Education
-y1 = drawSectionHeader('Education', col1Left, y1);
+y1 = drawSectionHeader('EDUCATION', col1Left, y1);
 
 // 2020-2024
 doc.setFont('helvetica', 'bold');
@@ -145,7 +145,7 @@ doc.text(ed4, col1Left, y1);
 y1 += ed4.length * 3.1 + 4.5;
 
 // Technical Skills
-y1 = drawSectionHeader('Technical Skills', col1Left, y1);
+y1 = drawSectionHeader('TECHNICAL SKILLS', col1Left, y1);
 
 function drawSkill(label, desc) {
   doc.setFont('helvetica', 'bold');
@@ -168,7 +168,7 @@ drawSkill('Operating Systems:', 'macOS, Windows, Linux (Project experience)');
 y1 += 2;
 
 // Languages
-y1 = drawSectionHeader('Languages', col1Left, y1);
+y1 = drawSectionHeader('LANGUAGES', col1Left, y1);
 doc.setFont('helvetica', 'bold');
 doc.setFontSize(7.7);
 doc.setTextColor(15, 23, 42);
@@ -187,7 +187,7 @@ doc.text('Very high proficiency, daily exposure and usage.', col1Left + 12, y1);
 
 // --- COLUMN 2 (RIGHT): SELECTED PROJECTS ---
 let y2 = topColumnsY;
-y2 = drawSectionHeader('Selected Projects', col2Left, y2);
+y2 = drawSectionHeader('SELECTED PROJECTS', col2Left, y2);
 
 function drawProject(title, desc, tools, github) {
   doc.setFont('helvetica', 'bold');
@@ -231,14 +231,14 @@ drawProject(
   'Color Bomb – Interactive Browser Game:',
   'Developed a game application based on JavaScript, implementing complex client-side algorithmic logic.',
   'HTML, CSS, JavaScript.',
-  'Color-bomb game'
+  'Color-bomb-game-in-js'
 );
 
 drawProject(
   'Fynx – Collaborative Full-Stack Application:',
   'Developed an end-to-end web system using Angular and Spring Boot for real-time data management and user interaction. Implemented REST APIs, multipart file uploads, and integrated an AI Chatbot while maintaining clear data separation through DTOs and Mappers.',
   'Angular, Java, Spring Boot, H2 Database.',
-  'web-app Fynx'
+  'Fynx'
 );
 
 drawProject(
@@ -259,7 +259,7 @@ drawProject(
   'Seminar-Site – Student Profile Component in Institutional System:',
   'Developed a microservice for an integrated system, enabling management of personal profiles, projects, skills, and a CV-generator chatbot. Implemented an End-to-End architecture featuring a secured API server and a dynamic Vite-based client interface.',
   'ASP.NET Core 7, React (Vite), Entity Framework Core, JWT, Material UI.',
-  'Microservice-Profile'
+  'Microservice_Profile'
 );
 
 // Save to public directory

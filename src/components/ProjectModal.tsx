@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Project, Language } from '../data/portfolioData';
 import { X, Github, ExternalLink, Check, Layers, Code2, Calendar } from 'lucide-react';
-import { ColorBombGame } from './ColorBombGame';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -68,13 +67,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             {project.subtitle[lang]}
           </p>
         </div>
-
-        {/* Playable Mini Game if applicable */}
-        {project.hasPlayableDemo && (
-          <div className="pt-2">
-            <ColorBombGame lang={lang} />
-          </div>
-        )}
 
         {/* Overview */}
         <div className="space-y-1.5">

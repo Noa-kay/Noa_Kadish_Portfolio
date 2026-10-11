@@ -11,27 +11,21 @@ import { ProjectModal } from './components/ProjectModal';
 import { CvModal } from './components/CvModal';
 
 export default function App() {
-  // English first by default!
-  const [lang, setLang] = useState<Language>('en');
+  const lang: Language = 'en';
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
 
-  // Sync document direction and lang attribute
+  // Sync document direction and lang attribute (English only)
   useEffect(() => {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
-  }, [lang]);
-
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === 'en' ? 'he' : 'en'));
-  };
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-slate-200 selection:text-slate-900">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-slate-200 selection:text-slate-900" dir="ltr">
       {/* High-Tech Developer Navbar */}
       <Navbar
         lang={lang}
-        onToggleLang={toggleLanguage}
         onOpenCvModal={() => setIsCvModalOpen(true)}
       />
 

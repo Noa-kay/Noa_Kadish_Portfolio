@@ -17,6 +17,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenCvModal }) => {
     'Java & Spring Boot',
     'C# & .NET Core 7',
     'TypeScript',
+    'Salesforce',
     'MongoDB & SQL',
     'Chip Verification (UVM)',
   ];

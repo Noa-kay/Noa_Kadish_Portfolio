@@ -31,7 +31,6 @@ export interface Project {
   };
   githubUrl: string;
   githubRepoName: string;
-  hasPlayableDemo?: boolean;
   image?: string;
   featured?: boolean;
   colorTheme: {
@@ -44,7 +43,7 @@ export interface Project {
 }
 
 export interface EducationItem {
-  period: string;
+  period?: string;
   institution: {
     he: string;
     en: string;
@@ -86,8 +85,8 @@ export const portfolioData = {
       en: 'Junior Full Stack Developer',
     },
     bio: {
-      he: 'מפתחת Full Stack ממוקדת תוצאות בעלת חשיבה לוגית חדה, קוד נקי ויכולת למידה עצמאית מהירה. ניסיון מעשי בפיתוח מערכות Web מקצה לקצה (React, Angular, Node.js, Spring Boot, .NET Core) לצד פרקטיקום אינטנסיבי בן 250 שעות בתכנון ואימות שבבים (UVM). זמינה מיידית להשתלב בצוות פיתוח.',
-      en: 'Results-driven Full Stack Developer with strong logical thinking, clean code discipline, and rapid mastery of new technologies. Hands-on experience across end-to-end web architectures (React, Angular, Node.js, Spring Boot, .NET Core) paired with a 250-hour intensive semiconductor verification practicum (UVM). Open to development opportunities.',
+      he: 'מפתחת Full Stack ממוקדת תוצאות בעלת חשיבה לוגית חדה, קוד נקי ויכולת למידה עצמאית מהירה. ניסיון מעשי בפיתוח מערכות Web מקצה לקצה (React, Angular, Node.js, Spring Boot, .NET Core, Salesforce) לצד פרקטיקום אינטנסיבי בן 250 שעות בתכנון ואימות שבבים (UVM). זמינה מיידית להשתלב בצוות פיתוח.',
+      en: 'Results-driven Full Stack Developer with strong logical thinking, clean code discipline, and rapid mastery of new technologies. Hands-on experience across end-to-end web architectures (React, Angular, Node.js, Spring Boot, .NET Core, Salesforce) paired with a 250-hour intensive semiconductor verification practicum (UVM). Open to development opportunities.',
     },
     email: 'noa.kadish@outlook.com',
     phone: '054-8527526',
@@ -183,8 +182,8 @@ export const portfolioData = {
         en: 'Modular microservice enabling authenticated communication between the student profile subsystem and core institutional services. Clean separation between data access layer (EF Core), business services, and controllers.',
       },
       image: '/src/assets/images/project_microservice_showcase_1790868482637.jpg',
-      githubUrl: 'https://github.com/Noa-kay/Microservice-Profile',
-      githubRepoName: 'Microservice-Profile',
+      githubUrl: 'https://github.com/Noa-kay/Microservice_Profile',
+      githubRepoName: 'Microservice_Profile',
       featured: true,
       colorTheme: {
         gradient: 'from-violet-500 via-purple-500 to-indigo-600',
@@ -234,8 +233,8 @@ export const portfolioData = {
         en: 'Tiered Spring Boot architecture: Controller -> Service -> Repository -> H2 DB, complemented by centralized exception handling and structured Angular services.',
       },
       image: '/src/assets/images/project_fynx_colorful_1790869694289.jpg',
-      githubUrl: 'https://github.com/Noa-kay/web-app-Fynx',
-      githubRepoName: 'web-app Fynx',
+      githubUrl: 'https://github.com/Noa-kay/Fynx.git',
+      githubRepoName: 'Fynx',
       featured: true,
       colorTheme: {
         gradient: 'from-blue-500 via-indigo-500 to-cyan-500',
@@ -371,9 +370,8 @@ export const portfolioData = {
           'Delightful interactive feedback with sound effects and score milestones.',
         ],
       },
-      githubUrl: 'https://github.com/Noa-kay/Color-bomb-game',
-      githubRepoName: 'Color-bomb game',
-      hasPlayableDemo: true,
+      githubUrl: 'https://github.com/Noa-kay/Color-bomb-game-in-js.git',
+      githubRepoName: 'Color-bomb-game-in-js',
       colorTheme: {
         gradient: 'from-pink-500 via-rose-500 to-red-500',
         badge: 'bg-pink-100 text-pink-800 border border-pink-200',
@@ -510,7 +508,6 @@ export const portfolioData = {
       tags: ['React', 'Angular', 'Node.js', 'Spring Boot', '.NET Core', 'SQL', 'MongoDB'],
     },
     {
-      period: '2024 – שוטף',
       institution: {
         he: 'למידה עצמית והעשרה מקצועית',
         en: 'Self-Learning & Continuous Enrichment',
@@ -523,7 +520,7 @@ export const portfolioData = {
         he: 'השלמת קורסים מקצועיים מקוונים דרך פלטפורמת "קמפוס IL" בתחומי טכנולוגיה, אלגוריתמיקה ופיתוח. למידה סקרנית ומתמדת של כלים וספריות חדשות, עבודה עם כלי AI (Copilot, Claude, Cursor) לשיפור מהירות ואיכות הפיתוח.',
         en: 'Completed professional online courses via the Campus IL platform in software development and computing fundamentals. Constant self-driven exploration of new tools, frameworks, and modern developer productivity tooling.',
       },
-      tags: ['Campus IL', 'Data Structures', 'Algorithms', 'AI Tools', 'DevOps Basics'],
+      tags: ['Salesforce', 'Campus IL', 'Data Structures', 'Algorithms', 'AI Tools', 'DevOps Basics'],
     },
     {
       period: '2020 – 2024',
@@ -611,6 +608,7 @@ export const portfolioData = {
       },
       items: [
         { name: 'Git & GitHub', proficiency: 'primary' },
+        { name: 'Salesforce', proficiency: 'primary' },
         { name: 'Docker (DevOps fundamentals)', proficiency: 'experienced' },
         { name: 'Postman & API Testing', proficiency: 'primary' },
         { name: 'Algorithms & Data Structures', proficiency: 'primary' },

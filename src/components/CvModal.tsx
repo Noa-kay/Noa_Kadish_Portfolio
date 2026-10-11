@@ -69,7 +69,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               title="Download PDF directly to your computer"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>{lang === 'en' ? 'Download PDF' : 'הורדת PDF'}</span>
+              <span>Download PDF</span>
             </a>
 
             {/* Print Button with dedicated print styling */}
@@ -79,7 +79,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               title="Print resume or save via browser print"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>{lang === 'en' ? 'Print' : 'הדפסה'}</span>
+              <span>Print</span>
             </button>
 
             {/* Copy Info Button */}
@@ -90,10 +90,10 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>{lang === 'en' ? 'Copied!' : 'הועתק!'}</span>
+                  <span>Copied!</span>
                 </>
               ) : (
-                <span>{lang === 'en' ? 'Copy Info' : 'העתקת פרטים'}</span>
+                <span>Copy Info</span>
               )}
             </button>
 
@@ -149,11 +149,11 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
           {/* 2-Column Exact Resume Layout - Fixed side-by-side in both preview and print */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-5 resume-columns">
             {/* LEFT COLUMN: Profile, Education, Technical Skills, Languages */}
-            <div className="space-y-5">
+            <div className="space-y-6">
               {/* Professional Profile */}
-              <div className="space-y-1.5 cv-section">
-                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
-                  Professional Profile
+              <div className="space-y-2 cv-section">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  PROFESSIONAL PROFILE
                 </h2>
                 <p className="text-xs text-slate-700 leading-relaxed">
                   Results-driven Full Stack Developer with strong logical thinking and a passion for deep system investigation. Proven track record of mastering new technologies quickly and delivering precise, creative solutions under pressure. Looking to join a development team as a Full Stack Developer to drive technical growth.
@@ -161,12 +161,12 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Education */}
-              <div className="space-y-2.5 cv-section">
-                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
-                  Education
+              <div className="space-y-3 cv-section">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  EDUCATION
                 </h2>
 
-                <div className="space-y-2 text-xs text-slate-700">
+                <div className="space-y-3 text-xs text-slate-700">
                   <div>
                     <span className="font-bold text-slate-950 block">2020–2024:</span>
                     <p>Full Matriculation Certificate: Beit Yaakov High School, Petah Tikva.</p>
@@ -211,8 +211,8 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
 
               {/* Technical Skills */}
               <div className="space-y-2 cv-section">
-                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
-                  Technical Skills
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  TECHNICAL SKILLS
                 </h2>
 
                 <div className="space-y-2 text-xs text-slate-700">
@@ -243,9 +243,9 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
               </div>
 
               {/* Languages */}
-              <div className="space-y-1 cv-section">
-                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
-                  Languages
+              <div className="space-y-1.5 cv-section">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  LANGUAGES
                 </h2>
                 <div className="text-xs text-slate-700 space-y-0.5">
                   <p><strong>Hebrew:</strong> Native</p>
@@ -255,10 +255,10 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
             </div>
 
             {/* RIGHT COLUMN: Selected Projects */}
-            <div className="space-y-4">
-              <div className="space-y-3.5 cv-section">
-                <h2 className="text-[13px] font-bold text-slate-950 border-b border-slate-900 pb-0.5 tracking-tight">
-                  Selected Projects
+            <div className="space-y-6">
+              <div className="space-y-4 cv-section">
+                <h2 className="text-sm font-bold text-slate-950 border-b border-slate-900 pb-1 uppercase tracking-tight">
+                  SELECTED PROJECTS
                 </h2>
 
                 {/* Cars */}
@@ -271,7 +271,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                   </p>
                   <p><strong>Tools:</strong> HTML, CSS.</p>
                   <a
-                    href="https://github.com/Noa-kay/Cars-website"
+                    href="https://github.com/Noa-kay/Cars-website.git"
                     target="_blank"
                     rel="noreferrer"
                     className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
@@ -291,12 +291,12 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                   </p>
                   <p><strong>Tools:</strong> HTML, CSS, JavaScript.</p>
                   <a
-                    href="https://github.com/Noa-kay/Color-bomb-game"
+                    href="https://github.com/Noa-kay/Color-bomb-game-in-js.git"
                     target="_blank"
                     rel="noreferrer"
                     className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
                   >
-                    <span>GitHub: Color-bomb game</span>
+                    <span>GitHub: Color-bomb-game-in-js</span>
                     <ExternalLink className="w-2.5 h-2.5" />
                   </a>
                 </div>
@@ -311,12 +311,12 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                   </p>
                   <p><strong>Tools:</strong> Angular, Java, Spring Boot, H2 Database.</p>
                   <a
-                    href="https://github.com/Noa-kay/web-app-Fynx"
+                    href="https://github.com/Noa-kay/Fynx.git"
                     target="_blank"
                     rel="noreferrer"
                     className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
                   >
-                    <span>GitHub: web-app Fynx</span>
+                    <span>GitHub: Fynx</span>
                     <ExternalLink className="w-2.5 h-2.5" />
                   </a>
                 </div>
@@ -371,12 +371,12 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, lang, onClose }) => {
                   </p>
                   <p><strong>Tools:</strong> ASP.NET Core 7, React (Vite), Entity Framework Core, JWT, Material UI.</p>
                   <a
-                    href="https://github.com/Noa-kay/Microservice-Profile"
+                    href="https://github.com/Noa-kay/Microservice_Profile"
                     target="_blank"
                     rel="noreferrer"
                     className="font-mono-code text-[11px] text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
                   >
-                    <span>GitHub: Microservice-Profile</span>
+                    <span>GitHub: Microservice_Profile</span>
                     <ExternalLink className="w-2.5 h-2.5" />
                   </a>
                 </div>

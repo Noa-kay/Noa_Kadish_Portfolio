@@ -43,9 +43,11 @@ export const ExperienceEducation: React.FC<ExperienceEducationProps> = ({ lang }
                   </p>
                 </div>
 
-                <span className="font-mono-code text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md">
-                  {item.period}
-                </span>
+                {item.period && (
+                  <span className="font-mono-code text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md">
+                    {item.period}
+                  </span>
+                )}
               </div>
 
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
