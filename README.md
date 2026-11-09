@@ -78,14 +78,5 @@
 
 ---
 
-## 📬 Contact & Connect
-
-- **Email:** [noa.kadish@outlook.com](mailto:noa.kadish@outlook.com)
-- **Phone:** [054-8527526](tel:0548527526)
-- **Location:** Petach Tikva, Israel (Central / Hybrid)
-- **GitHub:** [@Noa-kay](https://github.com/Noa-kay)
-- **LinkedIn:** [Noa Kadish](https://linkedin.com/in/noa-kadish)
-
----
 
 *Crafted with precision by Noa Kadish.*
