@@ -77,6 +77,3 @@
    ```
 
 ---
-
-
-*Crafted with precision by Noa Kadish.*
